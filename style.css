@@ -1,45 +1,144 @@
-:root {
-    --grpblue: #6965db;
-    --icn: #7b77dc;
-    --icnback: #e3e2fe;
-}
-
 * {
     padding: 0;
     margin: 0;
 }
 
-body {
-    background-color: #ffffff;
+#container {
+    height: 100vh;
+    width: 100vw;
+    position: relative;
+    overflow: hidden;
 }
 
-header {
+.divident {
+    border: 1px solid #f1f0ff;
+    margin-inline: 5px;
+    height: 40%;
+}
+
+#top {
+    position: absolute;
+    width: 100vw;
     display: flex;
+    align-items: center;
     justify-content: space-between;
-    padding: 10px 16px;
+    z-index: 10;
+    padding: 15px;
 }
 
-.menubtn {
+.left-top {
     display: flex;
+    position: relative;
+    right: 60px;
+    gap: 8px;
+}
+
+#top>.options {
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 5px;
     border-radius: 10px;
-    border: 1px solid black;
-    background: white;
+    padding: 0px 10px;
+    height: 50px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.menu {
+    background-color: #ECECF3;
+    border-radius: 4px;
+}
+
+.btn {
+    border: none;
+    padding: 10px;
+    background-color: transparent;
     cursor: pointer;
-    padding: 9px 7px;
+    font-size: 16px !important;
+    transition: all 0.2s linear 0s;
 }
 
-header .h-left {
-    width: 1fr;
+.btn:hover,
+.active {
+    background-color: #e0dfff;
+    border-radius: 4px;
+    color: #030064;
 }
 
-header .h-center {
-    width: 2fr;
+#canvas {
+    width: 100%;
+    height: 100%;
 }
 
-header .h-right {
-    width: 1fr;
+#bottom {
+    display: flex;
+    gap: 12px;
+    position: absolute;
+    z-index: 100;
+    left: 20px;
+    bottom: 20px;
+    width: 100%;
+    justify-content: space-between;
 }
 
-.menuicn {
-    font-size: 12px;
+#zoom {
+    height: auto;
+    width: 100%;
+}
+
+#bottom .options {
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ececf4;
+    padding: 4px 10px;
+    border-radius: 5px;
+}
+
+.bottom-left {
+    display: flex;
+    gap: 8px;
+}
+
+.bottom-right {
+    display: flex;
+    position: relative;
+    right: 60px;
+    bottom: 0;
+    gap: 8px;
+}
+
+.disp {
+    display: none;
+}
+
+.user {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    color: white;
+    background: #6965db;
+    padding: 8px;
+    cursor: pointer;
+}
+
+.lib {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #ececf4;
+    border-radius: 8px;
+    width: 100%;
+    gap: 5px;
+    padding: 9px;
+    cursor: pointer;
+}
+
+.user:hover,
+.lib:hover {
+    background: #540078;
+    color: white;
+    transition: all 0s ease 0s;
 }

@@ -2,62 +2,67 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
-    <title>F2-Contest_1_October</title>
+    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+    <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16.png">
+    <link rel="stylesheet" href="style.css">
+    <title>Excalidraw</title>
 </head>
 <body>
-    <header>
-        <div class="h-left">
-            <button class="menubtn">
-                <span class="menuicn material-symbols-outlined">
-                    menu
-                </span>
-            </button>
+    <div id="container">
+        <div id="top">
+            <button class="material-icons menu btn">menu</button>
+            <div class="options">
+
+                <button class="btn material-symbols-outlined press" id="lock">lock_open</button>
+                <div class="divident"></div>
+                <button class="btn material-icons tool" id="pencil">edit</button>
+                <label for="color-picker" id="color-pick" class="btn active material-symbols-outlined">
+                    colors
+                    <input type="color" class="disp" id="color-picker">
+                </label>
+                <button class="btn material-symbols-outlined press tool" id="square">check_box_outline_blank</button>
+                <button class="btn material-symbols-outlined press tool" id="oblique">nearby</button>
+                <button class="btn material-symbols-outlined press tool" id="circle">panorama_fish_eye</button>
+                <button class="btn material-symbols-outlined press tool" id="line">horizontal_rule</button>
+                <button class="btn material-symbols-outlined press tool" id="eraser">ink_eraser</button>
+                <!-- <button class="btn material-symbols-outlined press">trending_flat</button> -->
+                <!-- <button class="btn material-symbols-outlined press">insert_text</button> -->
+                <!-- <button class="btn material-symbols-outlined press">hand_gesture</button> -->
+                <!-- <button class="btn material-symbols-outlined press">arrow_selector_tool</button> -->
+                <div class="divident"></div>
+                <button class="btn material-symbols-outlined">category</button>
+            </div>
+            <div class="left-top">
+                <div class="user"><span class="material-symbols-outlined">group</span></div>
+                <div class="lib"><span class="material-symbols-outlined">import_contacts</span>Library</div>
+            </div>
         </div>
-        <div class="h-center">
-            <div class="card">
-                <div class="c-left"></div>
-                <div class="c-center">
-                    <div class="lock"></div>
-                    <div class="palm"></div>
-                    <div class="square"></div>
-                    <div class="diamond"></div>
-                    <div class="circle"></div>
-                    <div class="arrow"></div>
-                    <div class="line"></div>
-                    <div class="pen"></div>
-                    <div class="text"></div>
-                    <div class="gallery"></div>
-                    <div class="eraser"></div>
+        <canvas id="canvas"></canvas>
+        <div id="bottom">
+            <div class="bottom-left">
+                <div class="options">
+                    <button class="btn material-symbols-outlined">add</button>
+                    <div id="zoom" class="btn"></div>
+                    <button class="btn material-symbols-outlined">remove</button>
                 </div>
-                <div class="c-right"></div>
+                <div class="options">
+                    <button class="btn material-icons">undo</button>
+                    <button class="btn material-icons">redo</button>
+                </div>
+            </div>
+            <div class="bottom-right">
+                <span class="material-symbols-outlined">
+                    help
+                </span>
             </div>
         </div>
-        <div class="h-right ">
-            <div class="grp"></div>
-            <div class="lib"></div>
-        </div>
-    </header>
-
-    <main class="main">
-
-    </main>
-    <footer class="footer">
-        <div class="f-left">
-            <div class="f-card-1">
-                <div class="plus"></div>
-                <div class="percent"></div>
-                <div class="minus"></div>
-            </div>
-        </div>
-        <div class="f-right">
-            <div class="secured"></div>
-            <div class="question"></div>
-        </div>
-    </footer>
+    </div>
+    <script src="canvas.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
