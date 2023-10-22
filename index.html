@@ -21,10 +21,13 @@
                 <button class="btn material-symbols-outlined press" id="lock">lock_open</button>
                 <div class="divident"></div>
                 <button class="btn material-icons tool" id="pencil">edit</button>
+
                 <label for="color-picker" id="color-pick" class="btn active material-symbols-outlined">
-                    colors
+                    palette
                     <input type="color" class="disp" id="color-picker">
                 </label>
+
+
                 <button class="btn material-symbols-outlined press tool" id="square">check_box_outline_blank</button>
                 <button class="btn material-symbols-outlined press tool" id="oblique">nearby</button>
                 <button class="btn material-symbols-outlined press tool" id="circle">panorama_fish_eye</button>
@@ -40,6 +43,35 @@
             <div class="left-top">
                 <div class="user"><span class="material-symbols-outlined">group</span></div>
                 <div class="lib"><span class="material-symbols-outlined">import_contacts</span>Library</div>
+            </div>
+        </div>
+        <div id="widthBox" class="width-card">
+
+            <div id="themeBox">
+                <label for="themeColor">Background</label>
+                <label id="chooseTheme" class="round btn material-symbols-outlined" for="themeColor">
+                    wallpaper
+                    <input type="color" class="disp" id="themeColor">
+                </label>
+            </div>
+
+            <div class="width-btns">
+                <label for="widthSize">Stroke Size</label>
+                <input type="range" id="widthSize" min="1" max="20" value="2">
+            </div>
+
+            <div class="fill_background">
+                <label for="fillColor">Fill Color</label>
+                <input type="checkbox" id="fillColor">
+                <label id="BGLable" class="round btn material-symbols-outlined">
+                    format_paint
+                    <input type="color" class="disp" id="bgColorpicker">
+                </label>
+            </div>
+
+            <div class="canvas-btns">
+                <button class="button-34" id="clearBtn" role="button">Clear Board</button>
+                <button class="button-23" id="saveBtn" role="button">Save Paint</button>
             </div>
         </div>
         <canvas id="canvas"></canvas>
@@ -62,7 +94,8 @@
             </div>
         </div>
     </div>
-    <script src="canvas.js"></script>
+    <script src="colors.js"></script>
     <script src="script.js"></script>
+    <script src="resize.js"></script>
 </body>
 </html>

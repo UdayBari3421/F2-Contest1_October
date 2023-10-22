@@ -1,68 +1,133 @@
-const canvas = document.getElementById("canvas");
+const canvas = document.getElementById("canvas"),
+  toolBtns = document.querySelectorAll(".tool"),
+  ctx = canvas.getContext("2d"),
+  sizeAdjust = document.getElementById("widthSize"),
+  widthBox = document.getElementById("widthBox");
 
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-const c = canvas.getContext("2d");
+let prevMouseX,
+  prevMouseY,
+  snapshot,
+  isDrawing = false,
+  selectedTool = "pencil",
+  brushWidth = 2,
+  drawingColor = "black",
+  bgColor = "black",
+  canvasBG = "white";
 
-let lock = document.getElementById("lock");
+window.addEventListener("load", () => {
+  canvas.width = canvas.offsetWidth;
+  canvas.height = canvas.offsetHeight;
+});
 
-let drawingColor = "black";
-let previousPosition = null;
+window.addEventListener("resize", function () {
+  canvas.width = canvas.innerWidth;
+  canvas.height = canvas.innerHeight;
+});
 
-function startDrawing(e) {
-  previousPosition = [e.clientX, e.clientY];
-  c.strokeStyle = drawingColor;
-  c.lineWidth = 2;
-  canvas.addEventListener("mousemove", drawing);
-  canvas.addEventListener("mouseup", onMouseUp);
-}
-
-function drawing(e) {
-  let currentPosition = [e.clientX, e.clientY];
-  if (isPencilActive) {
-    c.beginPath();
-    c.moveTo(...previousPosition);
-    c.lineTo(...currentPosition);
-    c.stroke();
+const drawRect = (e) => {
+  if (!fillColor.checked) {
+    return ctx.strokeRect(
+      e.offsetX,
+      e.offsetY,
+      prevMouseX - e.offsetX,
+      prevMouseY - e.offsetY
+    );
   }
+  ctx.fillRect(
+    e.offsetX,
+    e.offsetY,
+    prevMouseX - e.offsetX,
+    prevMouseY - e.offsetY
+  );
+};
 
-  c.closePath();
+const drawCircle = (e) => {
+  ctx.beginPath();
+  let radius = Math.sqrt(
+    Math.pow(prevMouseX - e.offsetX, 2) + Math.pow(prevMouseY - e.offsetY, 2)
+  );
+  ctx.arc(prevMouseX, prevMouseY, radius, 0, 2 * Math.PI);
+  fillColor.checked ? ctx.fill() : ctx.stroke();
+};
 
-  previousPosition = currentPosition;
-}
+const startDraw = (e) => {
+  isDrawing = true;
+  prevMouseX = e.offsetX;
+  prevMouseY = e.offsetY;
+  ctx.beginPath();
+  ctx.lineWidth = brushWidth;
+  ctx.strokeStyle = colorPicker.value;
+  ctx.fillStyle = bgColorpicker.value;
+  widthBox.classList.add("disp");
+  snapshot = ctx.getImageData(0, 0, canvas.width, canvas.height);
+};
 
-function onMouseUp(e) {
-  canvas.removeEventListener("mousemove", drawing);
-}
+const drawLine = (e) => {
+  ctx.beginPath();
+  ctx.moveTo(prevMouseX, prevMouseY);
+  ctx.lineTo(e.offsetX, e.offsetY);
+  ctx.stroke();
+  ctx.closePath();
+};
 
-function lockClick() {
-  lock.classList.toggle("active");
-  if (lock.innerText === "lock_open") {
-    lock.innerText = "lock";
-    lock.classList.toggle("active");
-  } else {
-    lock.innerText = "lock_open";
-    lock.classList.toggle("active");
+const drawOblique = (e) => {
+  if (!isDrawing) return;
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.putImageData(snapshot, 0, 0);
+
+  const centerX = (prevMouseX + e.offsetX) / 2;
+  const centerY = (prevMouseY + e.offsetY) / 2;
+
+  ctx.beginPath();
+  ctx.moveTo(centerX, prevMouseY);
+  ctx.lineTo(e.offsetX, centerY);
+  ctx.lineTo(centerX, e.offsetY);
+  ctx.lineTo(prevMouseX, centerY);
+  ctx.closePath();
+  fillColor.checked ? ctx.fill() : ctx.stroke();
+};
+
+const drawing = (e) => {
+  if (!isDrawing) return;
+  ctx.putImageData(snapshot, 0, 0);
+  widthBox.style.display = "none";
+  if (selectedTool === "pencil") {
+    ctx.lineTo(e.offsetX, e.offsetY);
+    ctx.stroke();
+  } else if (selectedTool === "square") {
+    drawRect(e);
+  } else if (selectedTool === "circle") {
+    drawCircle(e);
+  } else if (selectedTool === "line") {
+    drawLine(e);
+  } else if (selectedTool === "oblique") {
+    drawOblique(e);
+  } else if (selectedTool === "eraser") {
+    ctx.lineTo(e.offsetX, e.offsetY);
+    ctx.strokeStyle = canvasBG;
+    ctx.stroke();
   }
-}
+};
 
-const buttons = document.querySelectorAll(".press");
-buttons.forEach(function (button) {
-  button.addEventListener("click", function () {
-    button.classList.toggle("active");
+toolBtns.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".tool").forEach((e) => {
+      e.classList.remove("active");
+    });
+
+    btn.classList.add("active");
+    selectedTool = btn.id;
+    widthBox.style.display = "flex";
+    console.log(selectedTool);
   });
 });
 
-lock.addEventListener("click", lockClick);
-canvas.addEventListener("mousedown", startDrawing);
+document.addEventListener(
+  "DOMContentLoaded",
+  () => (widthBox.style.display = "none")
+);
 
-window.addEventListener("resize", getSizes, false);
-let out = document.getElementById("zoom");
-let zoom =
-  Math.ceil(((window.outerWidth - 10) / window.innerWidth) * 100) + "%";
-out.textContent = zoom;
-
-function getSizes() {
-  zoom = Math.ceil(((window.outerWidth - 10) / window.innerWidth) * 100) + "%";
-  out.textContent = zoom;
-}
+canvas.addEventListener("mousedown", startDraw);
+canvas.addEventListener("mousemove", drawing);
+canvas.addEventListener("mouseup", () => (isDrawing = false));
+sizeAdjust.addEventListener("change", () => (brushWidth = sizeAdjust.value));
