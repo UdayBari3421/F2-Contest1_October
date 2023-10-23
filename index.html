@@ -15,10 +15,10 @@
 <body>
     <div id="container">
         <div id="top">
-            <button class="material-icons menu btn">menu</button>
+            <button id="menuBtn" class="material-icons menu btn">menu</button>
             <div class="options">
 
-                <button class="btn material-symbols-outlined press" id="lock">lock_open</button>
+                <button class="btn material-symbols-outlined" id="lock">lock_open</button>
                 <div class="divident"></div>
                 <button class="btn material-icons tool" id="pencil">edit</button>
 
@@ -40,7 +40,7 @@
                 <div class="divident"></div>
                 <button class="btn material-symbols-outlined">category</button>
             </div>
-            <div class="left-top">
+            <div class="right-top">
                 <div class="user"><span class="material-symbols-outlined">group</span></div>
                 <div class="lib"><span class="material-symbols-outlined">import_contacts</span>Library</div>
             </div>
@@ -83,8 +83,8 @@
                     <button class="btn material-symbols-outlined">remove</button>
                 </div>
                 <div class="options">
-                    <button class="btn material-icons">undo</button>
-                    <button class="btn material-icons">redo</button>
+                    <button id="undoBtn" class="btn material-icons">undo</button>
+                    <button id="redoBtn" class="btn material-icons">redo</button>
                 </div>
             </div>
             <div class="bottom-right">
@@ -97,5 +97,7 @@
     <script src="colors.js"></script>
     <script src="script.js"></script>
     <script src="resize.js"></script>
+    <script src="tochMotions.js"></script>
+    <script src="undoredo.js"></script>
 </body>
 </html>

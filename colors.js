@@ -16,7 +16,7 @@ picker.addEventListener("click", () => {
   colorPicker.classList.toggle("disp");
 });
 
-colorPicker.addEventListener("change", () => {
+colorPicker.addEventListener("input", () => {
   drawingColor = colorPicker.value;
   picker.style.background = colorPicker.value;
 });
@@ -25,7 +25,7 @@ BGL.addEventListener("click", () => {
   bgColorpicker.classList.toggle("disp");
 });
 
-bgColorpicker.addEventListener("change", () => {
+bgColorpicker.addEventListener("input", () => {
   bgColor = bgColorpicker.value;
   BGL.style.background = bgColorpicker.value;
 });
@@ -34,9 +34,10 @@ chooseTheme.addEventListener("click", () => {
   themeColor.classList.toggle("disp");
 });
 
-themeColor.addEventListener("change", () => {
+themeColor.addEventListener("input", () => {
   canvasBG = themeColor.value;
   canvas.style.background = themeColor.value;
+  chooseTheme.style.background = themeColor.value;
   clearCan();
 });
 

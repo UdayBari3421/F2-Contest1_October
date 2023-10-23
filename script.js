@@ -2,13 +2,15 @@ const canvas = document.getElementById("canvas"),
   toolBtns = document.querySelectorAll(".tool"),
   ctx = canvas.getContext("2d"),
   sizeAdjust = document.getElementById("widthSize"),
+  menuBtn = document.getElementById("menuBtn"),
+  pencil = document.getElementById("pencil"),
   widthBox = document.getElementById("widthBox");
 
 let prevMouseX,
   prevMouseY,
   snapshot,
   isDrawing = false,
-  selectedTool = "pencil",
+  selectedTool = "",
   brushWidth = 2,
   drawingColor = "black",
   bgColor = "black",
@@ -20,8 +22,8 @@ window.addEventListener("load", () => {
 });
 
 window.addEventListener("resize", function () {
-  canvas.width = canvas.innerWidth;
-  canvas.height = canvas.innerHeight;
+  canvas.width = canvas.offsetWidth;
+  canvas.height = canvas.offsetHeight;
 });
 
 const drawRect = (e) => {
@@ -50,16 +52,28 @@ const drawCircle = (e) => {
   fillColor.checked ? ctx.fill() : ctx.stroke();
 };
 
+const ad = document.querySelectorAll(".tool");
+const bool = () => {
+  for (let i = 0; i < ad.length; i++) {
+    if (ad[i].classList.contains("active")) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+};
 const startDraw = (e) => {
-  isDrawing = true;
-  prevMouseX = e.offsetX;
-  prevMouseY = e.offsetY;
-  ctx.beginPath();
-  ctx.lineWidth = brushWidth;
-  ctx.strokeStyle = colorPicker.value;
-  ctx.fillStyle = bgColorpicker.value;
-  widthBox.classList.add("disp");
-  snapshot = ctx.getImageData(0, 0, canvas.width, canvas.height);
+  if (bool) {
+    isDrawing = true;
+    prevMouseX = e.offsetX;
+    prevMouseY = e.offsetY;
+    ctx.beginPath();
+    ctx.lineWidth = brushWidth;
+    ctx.strokeStyle = colorPicker.value;
+    ctx.fillStyle = bgColorpicker.value;
+    widthBox.classList.add("disp");
+    snapshot = ctx.getImageData(0, 0, canvas.width, canvas.height);
+  } else isDrawing = false;
 };
 
 const drawLine = (e) => {
@@ -71,10 +85,6 @@ const drawLine = (e) => {
 };
 
 const drawOblique = (e) => {
-  if (!isDrawing) return;
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.putImageData(snapshot, 0, 0);
-
   const centerX = (prevMouseX + e.offsetX) / 2;
   const centerY = (prevMouseY + e.offsetY) / 2;
 
@@ -91,21 +101,23 @@ const drawing = (e) => {
   if (!isDrawing) return;
   ctx.putImageData(snapshot, 0, 0);
   widthBox.style.display = "none";
-  if (selectedTool === "pencil") {
+  if (selectedTool === "pencil" && bool) {
     ctx.lineTo(e.offsetX, e.offsetY);
     ctx.stroke();
-  } else if (selectedTool === "square") {
+  } else if (selectedTool === "square" && bool) {
     drawRect(e);
-  } else if (selectedTool === "circle") {
+  } else if (selectedTool === "circle" && bool) {
     drawCircle(e);
-  } else if (selectedTool === "line") {
+  } else if (selectedTool === "line" && bool) {
     drawLine(e);
-  } else if (selectedTool === "oblique") {
+  } else if (selectedTool === "oblique" && bool) {
     drawOblique(e);
-  } else if (selectedTool === "eraser") {
+  } else if (selectedTool === "eraser" && bool) {
     ctx.lineTo(e.offsetX, e.offsetY);
     ctx.strokeStyle = canvasBG;
     ctx.stroke();
+  } else {
+    isDrawing = false;
   }
 };
 
@@ -117,6 +129,12 @@ toolBtns.forEach((btn) => {
 
     btn.classList.add("active");
     selectedTool = btn.id;
+    if (selectedTool === "pencil") {
+      pencil.addEventListener("click", () => {
+        pencil.classList.remove("active");
+      });
+    }
+
     widthBox.style.display = "flex";
     console.log(selectedTool);
   });
@@ -131,3 +149,11 @@ canvas.addEventListener("mousedown", startDraw);
 canvas.addEventListener("mousemove", drawing);
 canvas.addEventListener("mouseup", () => (isDrawing = false));
 sizeAdjust.addEventListener("change", () => (brushWidth = sizeAdjust.value));
+
+menuBtn.addEventListener("click", () => {
+  if (widthBox.style.display == "none") {
+    widthBox.style.display = "flex";
+  } else {
+    widthBox.style.display = "none";
+  }
+});
