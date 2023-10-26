@@ -42,10 +42,9 @@ const drawCircle = (e) => {
   fillColor.checked ? ctx.fill() : ctx.stroke();
 };
 
-const ad = document.querySelectorAll(".tool");
 const bool = () => {
-  for (let i = 0; i < ad.length; i++) {
-    if (ad[i].classList.contains("active")) {
+  for (let i = 0; i < toolBtns.length; i++) {
+    if (toolBtns[i].classList.contains("active")) {
       return true;
     } else {
       return false;
