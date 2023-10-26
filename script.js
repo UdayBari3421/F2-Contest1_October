@@ -141,11 +141,6 @@ toolBtns.forEach((btn) => {
   });
 });
 
-document.addEventListener(
-  "DOMContentLoaded",
-  () => (widthBox.style.display = "none")
-);
-
 canvas.addEventListener("mousedown", startDraw);
 canvas.addEventListener("mousemove", drawing);
 canvas.addEventListener("mouseup", () => (isDrawing = false));

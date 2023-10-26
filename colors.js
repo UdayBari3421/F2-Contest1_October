@@ -1,12 +1,12 @@
-const picker = document.getElementById("color-pick"),
-  colorPicker = document.getElementById("color-picker"),
-  fillColor = document.getElementById("fillColor"),
-  BGL = document.getElementById("BGLable"),
-  chooseTheme = document.getElementById("chooseTheme"),
-  themeColor = document.getElementById("themeColor"),
-  bgColorpicker = document.getElementById("bgColorpicker"),
-  clearCanvas = document.getElementById("clearBtn"),
-  saveBtn = document.getElementById("saveBtn");
+const picker = document.getElementById("color-pick");
+const colorPicker = document.getElementById("color-picker");
+const fillColor = document.getElementById("fillColor");
+const BGL = document.getElementById("BGLable");
+const chooseTheme = document.getElementById("chooseTheme");
+const themeColor = document.getElementById("themeColor");
+const bgColorpicker = document.getElementById("bgColorpicker");
+const clearCanvas = document.getElementById("clearBtn");
+const saveBtn = document.getElementById("saveBtn");
 
 function clearCan() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);

@@ -41,3 +41,8 @@ document.body.addEventListener("keydown", (event) => {
 document.addEventListener("contextmenu", (event) => {
   event.preventDefault();
 });
+
+document.addEventListener(
+  "DOMContentLoaded",
+  () => (widthBox.style.display = "none")
+);
