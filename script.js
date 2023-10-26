@@ -42,7 +42,7 @@ const drawCircle = (e) => {
   fillColor.checked ? ctx.fill() : ctx.stroke();
 };
 
-const bool = () => {
+const isactiveClass = () => {
   for (let i = 0; i < toolBtns.length; i++) {
     if (toolBtns[i].classList.contains("active")) {
       return true;
@@ -53,7 +53,7 @@ const bool = () => {
 };
 
 const startDraw = (e) => {
-  if (bool) {
+  if (isactiveClass) {
     isDrawing = true;
     prevMouseX = e.offsetX;
     prevMouseY = e.offsetY;
@@ -101,18 +101,18 @@ const drawing = (e) => {
   if (!isDrawing) return;
   ctx.putImageData(snapshot, 0, 0);
   widthBox.style.display = "none";
-  if (selectedTool === "pencil" && bool) {
+  if (selectedTool === "pencil" && isactiveClass) {
     ctx.lineTo(e.offsetX, e.offsetY);
     ctx.stroke();
-  } else if (selectedTool === "square" && bool) {
+  } else if (selectedTool === "square" && isactiveClass) {
     drawRect(e);
-  } else if (selectedTool === "circle" && bool) {
+  } else if (selectedTool === "circle" && isactiveClass) {
     drawCircle(e);
-  } else if (selectedTool === "line" && bool) {
+  } else if (selectedTool === "line" && isactiveClass) {
     drawLine(e);
-  } else if (selectedTool === "triangle" && bool) {
+  } else if (selectedTool === "triangle" && isactiveClass) {
     drawTriangle(e);
-  } else if (selectedTool === "eraser" && bool) {
+  } else if (selectedTool === "eraser" && isactiveClass) {
     ctx.lineTo(e.offsetX, e.offsetY);
     ctx.strokeStyle = canvasBG;
     ctx.stroke();
