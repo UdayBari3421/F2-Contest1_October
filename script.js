@@ -1,30 +1,20 @@
-const canvas = document.getElementById("canvas"),
-  toolBtns = document.querySelectorAll(".tool"),
-  ctx = canvas.getContext("2d"),
-  sizeAdjust = document.getElementById("widthSize"),
-  menuBtn = document.getElementById("menuBtn"),
-  pencil = document.getElementById("pencil"),
-  widthBox = document.getElementById("widthBox");
+const canvas = document.getElementById("canvas");
+const toolBtns = document.querySelectorAll(".tool");
+const ctx = canvas.getContext("2d");
+const sizeAdjust = document.getElementById("widthSize");
+const menuBtn = document.getElementById("menuBtn");
+const pencil = document.getElementById("pencil");
+const widthBox = document.getElementById("widthBox");
 
-let prevMouseX,
-  prevMouseY,
-  snapshot,
-  isDrawing = false,
-  selectedTool = "",
-  brushWidth = 2,
-  drawingColor = "black",
-  bgColor = "black",
-  canvasBG = "white";
-
-window.addEventListener("load", () => {
-  canvas.width = canvas.offsetWidth;
-  canvas.height = canvas.offsetHeight;
-});
-
-window.addEventListener("resize", function () {
-  canvas.width = canvas.offsetWidth;
-  canvas.height = canvas.offsetHeight;
-});
+let prevMouseX;
+let prevMouseY;
+let snapshot;
+let isDrawing = false;
+let selectedTool = "";
+let brushWidth = 2;
+let drawingColor = "black";
+let bgColor = "black";
+let canvasBG = "white";
 
 const drawRect = (e) => {
   if (!fillColor.checked) {
@@ -62,6 +52,7 @@ const bool = () => {
     }
   }
 };
+
 const startDraw = (e) => {
   if (bool) {
     isDrawing = true;
@@ -84,16 +75,26 @@ const drawLine = (e) => {
   ctx.closePath();
 };
 
-const drawOblique = (e) => {
-  const centerX = (prevMouseX + e.offsetX) / 2;
-  const centerY = (prevMouseY + e.offsetY) / 2;
-
+const drawTriangle = (e) => {
   ctx.beginPath();
-  ctx.moveTo(centerX, prevMouseY);
-  ctx.lineTo(e.offsetX, centerY);
-  ctx.lineTo(centerX, e.offsetY);
-  ctx.lineTo(prevMouseX, centerY);
+
+  const sideLength = Math.abs(prevMouseX - e.offsetX);
+  const height = sideLength * (Math.sqrt(3) / 2);
+
+  const x1 = prevMouseX - sideLength / 2;
+  const y1 = prevMouseY + height / 2;
+
+  const x2 = prevMouseX + sideLength / 2;
+  const y2 = prevMouseY + height / 2;
+
+  const x3 = prevMouseX;
+  const y3 = prevMouseY - height / 2;
+
+  ctx.moveTo(x1, y1);
+  ctx.lineTo(x2, y2);
+  ctx.lineTo(x3, y3);
   ctx.closePath();
+
   fillColor.checked ? ctx.fill() : ctx.stroke();
 };
 
@@ -110,8 +111,8 @@ const drawing = (e) => {
     drawCircle(e);
   } else if (selectedTool === "line" && bool) {
     drawLine(e);
-  } else if (selectedTool === "oblique" && bool) {
-    drawOblique(e);
+  } else if (selectedTool === "triangle" && bool) {
+    drawTriangle(e);
   } else if (selectedTool === "eraser" && bool) {
     ctx.lineTo(e.offsetX, e.offsetY);
     ctx.strokeStyle = canvasBG;

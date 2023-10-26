@@ -1,3 +1,13 @@
+window.addEventListener("load", () => {
+  canvas.width = canvas.offsetWidth;
+  canvas.height = canvas.offsetHeight;
+});
+
+window.addEventListener("resize", function () {
+  canvas.width = canvas.offsetWidth;
+  canvas.height = canvas.offsetHeight;
+});
+
 window.addEventListener("resize", getSizes, false);
 let out = document.getElementById("zoom");
 let zoom =
