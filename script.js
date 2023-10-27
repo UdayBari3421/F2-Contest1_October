@@ -56,6 +56,39 @@ const drawCircle = (e) => {
   fillColor.checked ? ctx.fill() : ctx.stroke();
 };
 
+const drawElipse = (e) => {
+  ctx.beginPath();
+  const radiusX = Math.abs(e.offsetX - prevMouseX);
+  const radiusY = Math.abs(e.offsetY - prevMouseY);
+  const rotation = 0;
+  const startAngle = 0;
+  const endAngle = 2 * Math.PI;
+
+  ctx.ellipse(
+    prevMouseX,
+    prevMouseY,
+    radiusX,
+    radiusY,
+    rotation,
+    startAngle,
+    endAngle
+  );
+
+  fillColor.checked ? ctx.fill() : ctx.stroke();
+};
+
+const drawOblique = (e) => {
+  const centerX = (prevMouseX + e.offsetX) / 2;
+  const centerY = (prevMouseY + e.offsetY) / 2;
+  ctx.beginPath();
+  ctx.moveTo(centerX, prevMouseY);
+  ctx.lineTo(e.offsetX, centerY);
+  ctx.lineTo(centerX, e.offsetY);
+  ctx.lineTo(prevMouseX, centerY);
+  ctx.closePath();
+  fillColor.checked ? ctx.fill() : ctx.stroke();
+};
+
 const startDraw = (e) => {
   if (isactiveClass) {
     isDrawing = true;
@@ -101,13 +134,23 @@ const drawTriangle = (e) => {
   fillColor.checked ? ctx.fill() : ctx.stroke();
 };
 
+const eraseDrawing = (e) => {
+  ctx.lineTo(e.offsetX, e.offsetY);
+  ctx.strokeStyle = canvasBG;
+  ctx.stroke();
+};
+
+const freeHandPencil = (e) => {
+  ctx.lineTo(e.offsetX, e.offsetY);
+  ctx.stroke();
+};
+
 const drawing = (e) => {
   if (!isDrawing) return;
   ctx.putImageData(snapshot, 0, 0);
   widthBox.style.display = "none";
   if (selectedTool === "pencil" && isactiveClass) {
-    ctx.lineTo(e.offsetX, e.offsetY);
-    ctx.stroke();
+    freeHandPencil(e);
   } else if (selectedTool === "square" && isactiveClass) {
     drawRect(e);
   } else if (selectedTool === "circle" && isactiveClass) {
@@ -116,10 +159,12 @@ const drawing = (e) => {
     drawLine(e);
   } else if (selectedTool === "triangle" && isactiveClass) {
     drawTriangle(e);
+  } else if (selectedTool === "oblique" && isactiveClass) {
+    drawOblique(e);
   } else if (selectedTool === "eraser" && isactiveClass) {
-    ctx.lineTo(e.offsetX, e.offsetY);
-    ctx.strokeStyle = canvasBG;
-    ctx.stroke();
+    eraseDrawing(e);
+  } else if (selectedTool === "elipse" && isactiveClass) {
+    drawElipse(e);
   } else {
     isDrawing = false;
   }
@@ -146,5 +191,4 @@ toolBtns.forEach((btn) => {
 
 canvas.addEventListener("mousedown", startDraw);
 canvas.addEventListener("mousemove", drawing);
-canvas.addEventListener("mouseup", () => (isDrawing = false));
 sizeAdjust.addEventListener("change", () => (brushWidth = sizeAdjust.value));

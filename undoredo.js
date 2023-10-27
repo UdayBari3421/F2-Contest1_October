@@ -6,11 +6,9 @@ function undo() {
     redoHistory.push(drawingHistory.pop());
     pathCount--;
     if (pathCount === 0) {
-      undoBtn.disabled = true;
       clearCan();
     } else {
       ctx.putImageData(drawingHistory[pathCount - 1], 0, 0);
-      undoBtn.disabled = false;
     }
   }
 }
