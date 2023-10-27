@@ -46,3 +46,11 @@ document.addEventListener(
   "DOMContentLoaded",
   () => (widthBox.style.display = "none")
 );
+
+menuBtn.addEventListener("click", () => {
+  if (widthBox.style.display == "none") {
+    widthBox.style.display = "flex";
+  } else {
+    widthBox.style.display = "none";
+  }
+});

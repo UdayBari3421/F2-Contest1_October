@@ -16,6 +16,16 @@ let drawingColor = "black";
 let bgColor = "black";
 let canvasBG = "white";
 
+const isactiveClass = () => {
+  for (let i = 0; i < toolBtns.length; i++) {
+    if (toolBtns[i].classList.contains("active")) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+};
+
 const drawRect = (e) => {
   if (!fillColor.checked) {
     return ctx.strokeRect(
@@ -40,16 +50,6 @@ const drawCircle = (e) => {
   );
   ctx.arc(prevMouseX, prevMouseY, radius, 0, 2 * Math.PI);
   fillColor.checked ? ctx.fill() : ctx.stroke();
-};
-
-const isactiveClass = () => {
-  for (let i = 0; i < toolBtns.length; i++) {
-    if (toolBtns[i].classList.contains("active")) {
-      return true;
-    } else {
-      return false;
-    }
-  }
 };
 
 const startDraw = (e) => {
@@ -144,11 +144,3 @@ canvas.addEventListener("mousedown", startDraw);
 canvas.addEventListener("mousemove", drawing);
 canvas.addEventListener("mouseup", () => (isDrawing = false));
 sizeAdjust.addEventListener("change", () => (brushWidth = sizeAdjust.value));
-
-menuBtn.addEventListener("click", () => {
-  if (widthBox.style.display == "none") {
-    widthBox.style.display = "flex";
-  } else {
-    widthBox.style.display = "none";
-  }
-});
