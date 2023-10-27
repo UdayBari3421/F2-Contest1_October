@@ -28,6 +28,8 @@ const drawingMotion = (e) => {
 // Function to handle touch/mouse end event
 const endDrawing = () => {
   isDrawing = false;
+  drawingHistory.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
+  pathCount++;
 };
 
 // Add touch/mouse event listeners to the canvas

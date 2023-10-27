@@ -42,10 +42,9 @@ document.addEventListener("contextmenu", (event) => {
   event.preventDefault();
 });
 
-document.addEventListener(
-  "DOMContentLoaded",
-  () => (widthBox.style.display = "none")
-);
+document.addEventListener("DOMContentLoaded", () => {
+  widthBox.style.display = "none";
+});
 
 menuBtn.addEventListener("click", () => {
   if (widthBox.style.display == "none") {

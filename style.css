@@ -233,8 +233,9 @@ button:hover {
         left: 29%;
     }
 
-    #bottom {
-        display: none;
+    .bottom-right,
+    .nonedisp {
+        display: none !important;
     }
 
     .width-card {
@@ -246,6 +247,10 @@ button:hover {
         justify-content: space-evenly;
         border-radius: 19px;
         border-top-left-radius: 0;
+    }
+
+    #bottom {
+        width: 0;
     }
 
 }
@@ -270,6 +275,18 @@ button:hover {
         background: transparent;
         padding: 0;
         justify-content: center;
-        bottom: 22px;
+        top: 12px;
+    }
+
+    .menu {
+        bottom: 13px;
+        left: 19px;
+        top: auto;
+    }
+
+    .undoredo {
+        position: fixed;
+        left: 50%;
+        right: 50%;
     }
 }

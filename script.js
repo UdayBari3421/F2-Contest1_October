@@ -6,6 +6,10 @@ const menuBtn = document.getElementById("menuBtn");
 const pencil = document.getElementById("pencil");
 const widthBox = document.getElementById("widthBox");
 
+const drawingHistory = [];
+const redoHistory = [];
+let pathCount = 0;
+
 let prevMouseX;
 let prevMouseY;
 let snapshot;

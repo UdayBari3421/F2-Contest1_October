@@ -1,2 +1,27 @@
-const undo = document.querySelector("#undo");
-const redo = document.querySelector("#redo");
+const undoBtn = document.querySelector("#undoBtn");
+const redoBtn = document.querySelector("#redoBtn");
+
+function undo() {
+  if (pathCount > 0) {
+    redoHistory.push(drawingHistory.pop());
+    pathCount--;
+    if (pathCount === 0) {
+      undoBtn.disabled = true;
+      clearCan();
+    } else {
+      ctx.putImageData(drawingHistory[pathCount - 1], 0, 0);
+      undoBtn.disabled = false;
+    }
+  }
+}
+function redo() {
+  if (redoHistory.length > 0) {
+    const redoCaptured = redoHistory.pop();
+    drawingHistory.push(redoCaptured);
+    pathCount++;
+    ctx.putImageData(redoCaptured, 0, 0);
+  }
+}
+
+undoBtn.addEventListener("click", undo);
+redoBtn.addEventListener("click", redo);
