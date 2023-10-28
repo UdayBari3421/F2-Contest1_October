@@ -1,0 +1,110 @@
+@media only screen and (max-width: 992px) {
+    .right-top {
+        display: none;
+    }
+
+    #top>.options {
+        left: 29%;
+    }
+
+    .bottom-right,
+    .nonedisp {
+        display: none !important;
+    }
+
+    .width-card {
+        padding: 10px 20px;
+        left: 14px;
+        top: 51px;
+        height: 30%;
+        width: 150px;
+        justify-content: space-evenly;
+        border-radius: 19px;
+        border-top-left-radius: 0;
+    }
+
+    #bottom {
+        width: 0;
+    }
+
+    #top>.options {
+        gap: 10px;
+    }
+
+    #top>.options .btn {
+        font-size: 12px;
+        padding: 5px;
+    }
+
+    #lock,
+    #category,
+    .divident {
+        display: none;
+    }
+
+    .width-card {
+        position: fixed;
+        padding: 10px 20px;
+        left: 6%;
+        top: 39%;
+        height: 50%;
+        width: 150px;
+        justify-content: space-evenly;
+        border-radius: 19px;
+        border-bottom-left-radius: 0;
+    }
+
+    .undoredo {
+        position: fixed;
+        left: 38%;
+        right: 50%;
+        bottom: 13px;
+        width: 20% !important;
+        justify-content: space-evenly !important;
+    }
+
+    #undoBtn,
+    #redoBtn {
+        padding: 6px;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #top>.options {
+        display: flex;
+        position: static;
+        flex-wrap: wrap;
+        height: auto;
+        padding: 16px 10px;
+        justify-content: space-evenly;
+    }
+
+    #top {
+        position: fixed;
+        width: 100vw;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        z-index: 10;
+        background: transparent;
+        padding: 0;
+        justify-content: center;
+        top: 12px;
+    }
+
+    .menu {
+        bottom: 13px;
+        left: 19px;
+        top: auto;
+    }
+
+    .undoredo {
+        left: 17% !important;
+        width: 75% !important;
+        justify-content: space-evenly !important;
+    }
+
+    #bottom .options {
+        padding: 0px 10px;
+    }
+}
