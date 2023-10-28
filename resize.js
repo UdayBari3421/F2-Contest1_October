@@ -1,11 +1,13 @@
 window.addEventListener("load", () => {
-  canvas.width = canvas.offsetWidth;
-  canvas.height = canvas.offsetHeight;
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
 });
 
 window.addEventListener("resize", function () {
-  canvas.width = canvas.offsetWidth;
-  canvas.height = canvas.offsetHeight;
+  const image = ctx.getImageData(0, 0, canvas.width, canvas.height);
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  ctx.putImageData(image, 0, 0);
 });
 
 window.addEventListener("resize", getSizes, false);
@@ -31,13 +33,15 @@ function lockClick() {
     lock.classList.remove("active");
   }
 }
+
 lock.addEventListener("click", lockClick);
 
 document.body.addEventListener("keydown", (event) => {
-  if (event.ctrlKey && "cvxspwuaz".indexOf(event.key) !== -1) {
+  if (event.ctrlKey && "cvxspwuaz+-".indexOf(event.key) !== -1) {
     event.preventDefault();
   }
 });
+
 document.addEventListener("contextmenu", (event) => {
   event.preventDefault();
 });

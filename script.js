@@ -108,7 +108,6 @@ const drawLine = (e) => {
   ctx.moveTo(prevMouseX, prevMouseY);
   ctx.lineTo(e.offsetX, e.offsetY);
   ctx.stroke();
-  ctx.closePath();
 };
 
 const drawTriangle = (e) => {
