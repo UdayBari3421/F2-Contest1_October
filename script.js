@@ -32,28 +32,53 @@ const isactiveClass = () => {
 
 const drawRect = (e) => {
   if (!fillColor.checked) {
-    return ctx.strokeRect(
+    ctx.strokeRect(
+      e.offsetX,
+      e.offsetY,
+      prevMouseX - e.offsetX,
+      prevMouseY - e.offsetY
+    );
+  } else {
+    ctx.fillRect(
+      e.offsetX,
+      e.offsetY,
+      prevMouseX - e.offsetX,
+      prevMouseY - e.offsetY
+    );
+    ctx.strokeRect(
       e.offsetX,
       e.offsetY,
       prevMouseX - e.offsetX,
       prevMouseY - e.offsetY
     );
   }
-  ctx.fillRect(
-    e.offsetX,
-    e.offsetY,
-    prevMouseX - e.offsetX,
-    prevMouseY - e.offsetY
-  );
 };
 
-const drawCircle = (e) => {
+const drawArrow = (e) => {
   ctx.beginPath();
-  let radius = Math.sqrt(
-    Math.pow(prevMouseX - e.offsetX, 2) + Math.pow(prevMouseY - e.offsetY, 2)
-  );
-  ctx.arc(prevMouseX, prevMouseY, radius, 0, 2 * Math.PI);
-  fillColor.checked ? ctx.fill() : ctx.stroke();
+
+  ctx.moveTo(prevMouseX, prevMouseY);
+
+  ctx.lineTo(e.offsetX, e.offsetY);
+
+  const angle = Math.atan2(e.offsetY - prevMouseY, e.offsetX - prevMouseX); // Calculate the angle of the arrow
+
+  const arrowHeadLength = 20; // Arrowhead length
+
+  ctx.stroke();
+
+  // Draw the arrowhead tip as lines
+  ctx.save();
+  ctx.translate(e.offsetX, e.offsetY);
+  ctx.rotate(angle);
+
+  // Draw the arrowhead lines
+  ctx.moveTo(-arrowHeadLength, arrowHeadLength);
+  ctx.lineTo(0, 0);
+  ctx.lineTo(-arrowHeadLength, -arrowHeadLength);
+
+  ctx.restore();
+  ctx.stroke();
 };
 
 const drawElipse = (e) => {
@@ -75,6 +100,7 @@ const drawElipse = (e) => {
   );
 
   fillColor.checked ? ctx.fill() : ctx.stroke();
+  ctx.stroke();
 };
 
 const drawOblique = (e) => {
@@ -86,7 +112,11 @@ const drawOblique = (e) => {
   ctx.lineTo(centerX, e.offsetY);
   ctx.lineTo(prevMouseX, centerY);
   ctx.closePath();
-  fillColor.checked ? ctx.fill() : ctx.stroke();
+  ctx.stroke();
+  if (fillColor.checked) {
+    ctx.fillStyle = bgColor;
+    ctx.fill();
+  }
 };
 
 const startDraw = (e) => {
@@ -131,6 +161,7 @@ const drawTriangle = (e) => {
   ctx.closePath();
 
   fillColor.checked ? ctx.fill() : ctx.stroke();
+  ctx.stroke();
 };
 
 const eraseDrawing = (e) => {
@@ -152,8 +183,8 @@ const drawing = (e) => {
     freeHandPencil(e);
   } else if (selectedTool === "square" && isactiveClass) {
     drawRect(e);
-  } else if (selectedTool === "circle" && isactiveClass) {
-    drawCircle(e);
+  } else if (selectedTool === "arrow" && isactiveClass) {
+    drawArrow(e);
   } else if (selectedTool === "line" && isactiveClass) {
     drawLine(e);
   } else if (selectedTool === "triangle" && isactiveClass) {
